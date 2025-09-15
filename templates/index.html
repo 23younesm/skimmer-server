@@ -21,6 +21,7 @@
         <tr>
           <th>Timestamp</th>
           <th>IP</th>
+          <th>Hostname</th>
           <th>Username</th>
           <th>Password</th>
         </tr>
@@ -30,6 +31,7 @@
         <tr>
           <td>{{ cred.timestamp }}</td>
           <td>{{ cred.ip }}</td>
+          <td>{{ cred.hostname or 'unknown' }}</td>
           <td>{{ cred.username }}</td>
           <td>{{ cred.password }}</td>
         </tr>
