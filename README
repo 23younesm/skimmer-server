@@ -1,4 +1,4 @@
 git clone https://github.com/23younesm/skimmer-server.git
 cd skimmer-server
 sudo docker build -t skimmer-server .
-sudo docker run -d -p 9999:9999 -p 8080:8080 skimmer-server
+sudo docker run -d --network host skimmer-server
