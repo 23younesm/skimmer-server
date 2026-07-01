@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  skimmer:
+    build: .
+    container_name: skimmer-server
+    restart: unless-stopped
+    network_mode: host
+    environment:
+      - SKIMMER_PASSWORD=${SKIMMER_PASSWORD:-admin}
+      - SECRET_KEY=${SECRET_KEY:-change-me}
+    volumes:
+      - skimmer-data:/data
+volumes:
+  skimmer-data:
