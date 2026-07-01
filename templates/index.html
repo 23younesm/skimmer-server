@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Skimmer Dashboard</title>
+  <title>Totally NOT A Skimmer Dashboard</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <style>
-    .badge-auth { background-color: #dc3545; }
-    .badge-change { background-color: #fd7e14; }
+    .badge-auth { background-color: #198754; }
+    .badge-change { background-color: #ffc107; color: #000; }
     .badge-unknown { background-color: #6c757d; }
+    .ts { color: #adb5bd; font-size: 0.85em; }
   </style>
 </head>
 <body class="bg-dark text-light">
   <div class="container-fluid py-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
-      <h2>Skimmer Dashboard</h2>
+      <h2>Totally NOT A Skimmer Dashboard</h2>
       <div>
         <span class="text-muted me-3">{{ creds|length }} credentials</span>
         <a href="/logout" class="btn btn-outline-secondary btn-sm">Logout</a>
@@ -30,9 +31,9 @@
         <div class="col-md-2">
           <select name="source" class="form-select form-select-sm">
             <option value="">All sources</option>
-            <option value="AUTH" {% if source == 'AUTH' %}selected{% endif %}>AUTH (logon)</option>
-            <option value="CHANGE" {% if source == 'CHANGE' %}selected{% endif %}>CHANGE (pw change)</option>
-            <option value="UNKNOWN" {% if source == 'UNKNOWN' %}selected{% endif %}>UNKNOWN</option>
+            <option value="AUTH" {% if source == 'AUTH' %}selected{% endif %}>Auth</option>
+            <option value="CHANGE" {% if source == 'CHANGE' %}selected{% endif %}>Password Change</option>
+            <option value="UNKNOWN" {% if source == 'UNKNOWN' %}selected{% endif %}>Unknown</option>
           </select>
         </div>
         <div class="col-md-2">
@@ -46,7 +47,7 @@
       <table class="table table-dark table-striped table-sm">
         <thead>
           <tr>
-            <th>Timestamp</th>
+            <th>Time</th>
             <th>Source</th>
             <th>IP</th>
             <th>Hostname</th>
@@ -57,14 +58,14 @@
         <tbody>
           {% for cred in creds|reverse %}
           <tr>
-            <td class="text-muted">{{ cred.timestamp }}</td>
+            <td class="ts">{{ cred.timestamp[:19].replace('T', ' ') }}</td>
             <td>
               {% if cred.source == 'AUTH' %}
-                <span class="badge badge-auth">AUTH</span>
+                <span class="badge badge-auth">Auth</span>
               {% elif cred.source == 'CHANGE' %}
-                <span class="badge badge-change">CHANGE</span>
+                <span class="badge badge-change">Password Change</span>
               {% else %}
-                <span class="badge badge-unknown">{{ cred.source or 'UNKNOWN' }}</span>
+                <span class="badge badge-unknown">{{ cred.source or 'Unknown' }}</span>
               {% endif %}
             </td>
             <td>{{ cred.ip }}</td>
